@@ -1,0 +1,101 @@
+{
+  "name": "webhook-signatures",
+  "version": "0.1.0",
+  "description": "One small, correct verifier for Stripe/Slack/GitHub/Shopify/Razorpay/Twilio/GitLab + Generic HMAC, with raw-body adapters.",
+  "type": "module",
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.mjs",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.mjs",
+      "require": "./dist/index.cjs"
+    },
+    "./express": {
+      "types": "./dist/adapters/express.d.ts",
+      "import": "./dist/adapters/express.mjs",
+      "require": "./dist/adapters/express.cjs"
+    },
+    "./next": {
+      "types": "./dist/adapters/next.d.ts",
+      "import": "./dist/adapters/next.mjs",
+      "require": "./dist/adapters/next.cjs"
+    },
+    "./aws": {
+      "types": "./dist/adapters/aws.d.ts",
+      "import": "./dist/adapters/aws.mjs",
+      "require": "./dist/adapters/aws.cjs"
+    },
+    "./cf": {
+      "types": "./dist/adapters/cf.d.ts",
+      "import": "./dist/adapters/cf.mjs",
+      "require": "./dist/adapters/cf.cjs"
+    },
+    "./fastify": {
+      "types": "./dist/adapters/fastify.d.ts",
+      "import": "./dist/adapters/fastify.mjs",
+      "require": "./dist/adapters/fastify.cjs"
+    },
+    "./replay-memory": {
+      "types": "./dist/replay/memory.d.ts",
+      "import": "./dist/replay/memory.mjs",
+      "require": "./dist/replay/memory.cjs"
+    },
+    "./replay-redis": {
+      "types": "./dist/replay/redis.d.ts",
+      "import": "./dist/replay/redis.mjs",
+      "require": "./dist/replay/redis.cjs"
+    }
+  },
+  "scripts": {
+    "build": "tsc -p tsconfig.json && tsup src/index.ts --format esm,cjs --dts --splitting false --out-dir dist && tsup src/adapters/*.ts --format esm,cjs --dts --splitting false --out-dir dist/adapters && tsup src/replay/*.ts --format esm,cjs --dts --splitting false --out-dir dist/replay && tsup src/providers/*.ts --format esm,cjs --dts --splitting false --out-dir dist/providers",
+    "dev": "tsup --watch src/index.ts src/providers/*.ts src/adapters/*.ts src/replay/*.ts",
+    "test": "vitest run",
+    "test:coverage": "vitest run --coverage",
+    "test:watch": "vitest",
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix",
+    "clean": "rm -rf dist coverage",
+    "prepublishOnly": "npm run clean && npm run lint && npm run test && npm run build"
+  },
+  "keywords": [
+    "webhooks",
+    "stripe",
+    "slack",
+    "github",
+    "shopify",
+    "razorpay",
+    "twilio",
+    "signature",
+    "verification"
+  ],
+  "license": "MIT",
+  "devDependencies": {
+    "@types/express": "^4.17.21",
+    "@types/node": "^20.11.0",
+    "typescript-eslint": "^8.0.0",
+    "@vitest/coverage-v8": "^1.6.1",
+    "eslint": "^9.5.0",
+    "fastify": "^4.28.1",
+    "tsup": "^8.0.0",
+    "typescript": "^5.5.0",
+    "vitest": "^1.6.0"
+  },
+  "peerDependencies": {
+    "express": "^4.0.0 || ^5.0.0",
+    "fastify": "^4.0.0 || ^5.0.0",
+    "ioredis": "^5.0.0"
+  },
+  "peerDependenciesMeta": {
+    "express": {
+      "optional": true
+    },
+    "fastify": {
+      "optional": true
+    },
+    "ioredis": {
+      "optional": true
+    }
+  }
+}
