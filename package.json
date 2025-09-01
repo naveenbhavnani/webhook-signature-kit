@@ -1,6 +1,6 @@
 {
   "name": "webhook-signatures",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "description": "One small, correct verifier for Stripe/Slack/GitHub/Shopify/Razorpay/Twilio/GitLab + Generic HMAC, with raw-body adapters.",
   "type": "module",
   "main": "./dist/index.cjs",
