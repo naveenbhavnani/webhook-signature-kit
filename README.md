@@ -1,4 +1,4 @@
-# webhook-signatures
+# webhook-signature-kit
 
 A tiny, framework-friendly TypeScript library that verifies webhook signatures correctly for popular providers and a configurable Generic-HMAC profile. It also solves the #1 pain point: getting the exact raw body across Express/Fastify/Next.js/Lambda/Workers.
 
@@ -24,7 +24,7 @@ A tiny, framework-friendly TypeScript library that verifies webhook signatures c
 ## Installation
 
 ```bash
-npm install webhook-signatures
+npm install webhook-signature-kit
 ```
 
 ## Quick Start
@@ -32,7 +32,7 @@ npm install webhook-signatures
 ### Basic Usage
 
 ```typescript
-import { verifyWebhook } from 'webhook-signatures';
+import { verifyWebhook } from 'webhook-signature-kit';
 
 const result = await verifyWebhook({
   provider: 'stripe',
@@ -53,7 +53,7 @@ const event = JSON.parse(req.rawBody.toString('utf8'));
 
 ```typescript
 import express from 'express';
-import { expressMiddleware } from 'webhook-signatures/express';
+import { expressMiddleware } from 'webhook-signature-kit/express';
 
 const app = express();
 
@@ -77,7 +77,7 @@ app.post('/stripe', expressMiddleware({
 
 ```typescript
 import Fastify from 'fastify';
-import { fastifyPlugin } from 'webhook-signatures/fastify';
+import { fastifyPlugin } from 'webhook-signature-kit/fastify';
 
 const app = Fastify({ logger: true });
 
@@ -99,7 +99,7 @@ await app.register(fastifyPlugin, {
 
 ```typescript
 // app/api/webhooks/stripe/route.ts
-import { verifyWebhook } from 'webhook-signatures';
+import { verifyWebhook } from 'webhook-signature-kit';
 
 export async function POST(req: Request) {
   const rawBody = await req.text();
@@ -124,7 +124,7 @@ export async function POST(req: Request) {
 
 ```typescript
 // pages/api/webhooks/github.ts
-import { nextVerify } from 'webhook-signatures/next';
+import { nextVerify } from 'webhook-signature-kit/next';
 
 export const config = { api: { bodyParser: false } };
 
@@ -145,7 +145,7 @@ export default async function handler(req, res) {
 ### AWS Lambda
 
 ```typescript
-import { awsLambdaVerify } from 'webhook-signatures/aws';
+import { awsLambdaVerify } from 'webhook-signature-kit/aws';
 
 export const handler = async (event) => {
   const result = await awsLambdaVerify(event, {
@@ -163,7 +163,7 @@ export const handler = async (event) => {
 ### Cloudflare Workers
 
 ```typescript
-import { cfVerify } from 'webhook-signatures/cf';
+import { cfVerify } from 'webhook-signature-kit/cf';
 
 export default {
   async fetch(request: Request) {
@@ -196,9 +196,9 @@ const result = await verifyWebhook({
 ### Replay Protection
 
 ```typescript
-import { MemoryReplayStore } from 'webhook-signatures/replay-memory';
+import { MemoryReplayStore } from 'webhook-signature-kit/replay-memory';
 // or
-import { RedisReplayStore } from 'webhook-signatures/replay-redis';
+import { RedisReplayStore } from 'webhook-signature-kit/replay-redis';
 
 const replayStore = new MemoryReplayStore();
 // const replayStore = new RedisReplayStore(redisClient);

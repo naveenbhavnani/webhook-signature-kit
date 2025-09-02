@@ -1,5 +1,5 @@
 {
-  "name": "webhook-signatures",
+  "name": "webhook-signature-kit",
   "version": "1.0.0",
   "description": "One small, correct verifier for Stripe/Slack/GitHub/Shopify/Razorpay/Twilio/GitLab + Generic HMAC, with raw-body adapters.",
   "type": "module",
